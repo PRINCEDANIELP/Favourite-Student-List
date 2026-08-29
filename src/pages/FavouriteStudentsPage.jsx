@@ -6,6 +6,12 @@ import SearchBar from '../components/SearchBar.jsx'
 import HighlightText from '../components/HighlightText.jsx'
 import { useThemeContext } from '../context/ThemeContext.jsx'
 import { useStudentContext } from '../context/StudentContext.jsx'
+const CLASS_FILTERS = [
+  ['Class 8 - A', '8-A'],
+  ['Class 9 - B', '9-B'],
+  ['Class 10 - C', '10-C'],
+  ['Class 11 - D', '11-D'],
+]
 function sortByQueryPriority(list, query) {
   if (!query) return list
 
@@ -21,17 +27,19 @@ export default function FavouriteStudentsPage() {
   const { theme } = useThemeContext()
   const { favourites, removeFavourite } = useStudentContext()
   const [query, setQuery] = useState('')
+  const [selectedClass, setSelectedClass] = useState('all')
   const filteredFavourites = useMemo(() => {
     const q = query.trim().toLowerCase()
-    if (!q) return favourites
     const matched = favourites.filter(
       (s) =>
-        s.name.toLowerCase().includes(q) ||
-        s.classSection.toLowerCase().includes(q) ||
-        s.email.toLowerCase().includes(q)
+        (selectedClass === 'all' || s.classSection === selectedClass) &&
+        (!q ||
+          s.name.toLowerCase().includes(q) ||
+          s.classSection.toLowerCase().includes(q) ||
+          s.email.toLowerCase().includes(q))
     )
     return sortByQueryPriority(matched, q)
-  }, [favourites, query])
+  }, [favourites, query, selectedClass])
   return (
     <div className={`min-h-screen flex flex-col ${theme.gradient}`}>
       <Navbar />
@@ -41,16 +49,43 @@ export default function FavouriteStudentsPage() {
         <p className="text-white/80 mb-6">
           {favourites.length === 0
             ? 'Your favourites list'
-            : query
-            ? `${filteredFavourites.length} of ${favourites.length} favourites match "${query}"`
-            : `${favourites.length} student${favourites.length > 1 ? 's' : ''} in your favourites`}
+            : `${filteredFavourites.length} of ${favourites.length} favourite student${favourites.length > 1 ? 's' : ''} shown`}
         </p>
         {favourites.length > 0 && (
-          <SearchBar
-            value={query}
-            onChange={setQuery}
-            placeholder="Search your favourites..."
-          />
+          <div className="mb-6 space-y-3">
+            <SearchBar
+              value={query}
+              onChange={setQuery}
+              placeholder="Search your favourites..."
+            />
+            <div className="flex flex-wrap gap-2" aria-label="Filter favourites by class">
+              <button
+                type="button"
+                onClick={() => setSelectedClass('all')}
+                className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                  selectedClass === 'all'
+                    ? `text-white ${theme.button}`
+                    : 'bg-white/80 text-gray-700 hover:bg-white'
+                }`}
+              >
+                All
+              </button>
+              {CLASS_FILTERS.map(([value, label]) => (
+                <button
+                  key={value}
+                  type="button"
+                  onClick={() => setSelectedClass(value)}
+                  className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                    selectedClass === value
+                      ? `text-white ${theme.button}`
+                      : 'bg-white/80 text-gray-700 hover:bg-white'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
         )}
         {favourites.length === 0 ? (
           <div className="bg-white/90 rounded-xl p-10 text-center shadow-lg">
@@ -64,10 +99,10 @@ export default function FavouriteStudentsPage() {
         ) : filteredFavourites.length === 0 ? (
           <div className="bg-white/90 rounded-xl p-10 text-center shadow-lg">
             <p className="text-gray-600 text-lg font-medium">
-              No favourites match "{query}"
+              No favourites match the selected filters
             </p>
             <p className="text-gray-400 text-sm mt-2">
-              Try a different name, section, or email.
+              Try a different name, section, email, or class.
             </p>
           </div>
         ) : (
