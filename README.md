@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Favourite Student List
 
 React + React Router + useContext + Tailwind CSS project.
@@ -34,3 +35,6 @@ Then open the printed local URL (usually http://localhost:5173).
   student's `id` for demo purposes — swap in your real data source as needed.
 - Swap the `<video>` `<source>` URLs in `HomePage.jsx` for your own clip.
 - All routing uses React Router's `<Link>`/`<Routes>` — no full page reloads.
+=======
+# Favourite-Student-List
+>>>>>>> c67e34d5276cd1971accf207a05d99b219416f03
