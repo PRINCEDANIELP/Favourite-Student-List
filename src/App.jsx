@@ -1,4 +1,5 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import LoginPage from './pages/LoginPage.jsx'
 import HomePage from './pages/HomePage.jsx'
 import StudentListPage from './pages/StudentListPage.jsx'
@@ -8,6 +9,11 @@ import { useAuth } from './context/AuthContext.jsx'
 
 export default function App() {
   const { isLoggedIn } = useAuth()
+  const location = useLocation()
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [location.pathname])
 
   return (
     <Routes>
