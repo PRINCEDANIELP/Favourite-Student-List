@@ -7,6 +7,10 @@ import HighlightText from '../components/HighlightText.jsx'
 import { useThemeContext } from '../context/ThemeContext.jsx'
 import { useStudentContext } from '../context/StudentContext.jsx'
 const SECTIONS = ['A', 'B', 'C', 'D']
+const CLASS_FILTERS = [8, 9, 10, 11].map((grade, index) => ({
+  value: `Class ${grade} - ${SECTIONS[index]}`,
+  label: `${grade}-${SECTIONS[index]}`,
+}))
 function deriveClassSection(id) {
   const grade = 8 + (id % 4) // Class 8 - 11
   const section = SECTIONS[id % SECTIONS.length]
@@ -27,6 +31,7 @@ export default function StudentListPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [query, setQuery] = useState('')
+  const [selectedClass, setSelectedClass] = useState('all')
   const { theme } = useThemeContext()
   const { addFavourite, isFavourite } = useStudentContext()
   useEffect(() => {
@@ -59,15 +64,16 @@ export default function StudentListPage() {
   }, [])
   const filteredStudents = useMemo(() => {
     const q = query.trim().toLowerCase()
-    if (!q) return students
     const matched = students.filter(
       (s) =>
-        s.name.toLowerCase().includes(q) ||
-        s.classSection.toLowerCase().includes(q) ||
-        s.email.toLowerCase().includes(q)
+        (selectedClass === 'all' || s.classSection === selectedClass) &&
+        (!q ||
+          s.name.toLowerCase().includes(q) ||
+          s.classSection.toLowerCase().includes(q) ||
+          s.email.toLowerCase().includes(q))
     )
     return sortByQueryPriority(matched, q)
-  }, [students, query])
+  }, [students, query, selectedClass])
   return (
     <div className={`min-h-screen flex flex-col ${theme.gradient}`}>
       <Navbar />
@@ -76,16 +82,43 @@ export default function StudentListPage() {
         <p className="text-white/80 mb-6">
           {loading
             ? 'Loading students...'
-            : query
-            ? `${filteredStudents.length} of ${students.length} students match "${query}"`
-            : `${students.length} students, sorted A - Z`}
+            : `${filteredStudents.length} of ${students.length} students shown`}
         </p>
         {!loading && !error && (
-          <SearchBar
-            value={query}
-            onChange={setQuery}
-            placeholder="Search by name, section, or email..."
-          />
+          <div className="mb-6 space-y-3">
+            <SearchBar
+              value={query}
+              onChange={setQuery}
+              placeholder="Search by name, section, or email..."
+            />
+            <div className="flex flex-wrap gap-2" aria-label="Filter by class">
+              <button
+                type="button"
+                onClick={() => setSelectedClass('all')}
+                className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                  selectedClass === 'all'
+                    ? `text-white ${theme.button}`
+                    : 'bg-white/80 text-gray-700 hover:bg-white'
+                }`}
+              >
+                All
+              </button>
+              {CLASS_FILTERS.map((classFilter) => (
+                <button
+                  key={classFilter.value}
+                  type="button"
+                  onClick={() => setSelectedClass(classFilter.value)}
+                  className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                    selectedClass === classFilter.value
+                      ? `text-white ${theme.button}`
+                      : 'bg-white/80 text-gray-700 hover:bg-white'
+                  }`}
+                >
+                  {classFilter.label}
+                </button>
+              ))}
+            </div>
+          </div>
         )}
         {loading && (
           <div className="text-white text-center py-20">Fetching students…</div>
@@ -98,10 +131,10 @@ export default function StudentListPage() {
         {!loading && !error && filteredStudents.length === 0 && (
           <div className="bg-white/90 rounded-xl p-10 text-center shadow-lg">
             <p className="text-gray-600 text-lg font-medium">
-              No students match "{query}"
+              No students match the selected filters
             </p>
             <p className="text-gray-400 text-sm mt-2">
-              Try a different name, section, or email.
+              Try a different name, section, email, or class.
             </p>
           </div>
         )}
