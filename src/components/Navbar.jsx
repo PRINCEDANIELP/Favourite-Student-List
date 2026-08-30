@@ -15,12 +15,12 @@ export default function Navbar() {
   }
   return (
     <nav
-      className={`flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 ${theme.navBg} backdrop-blur-sm text-white sticky top-0 z-50 transition-colors`}
+      className={`flex items-center justify-between gap-2 px-3 py-3 sm:px-6 ${theme.navBg} backdrop-blur-sm text-white sticky top-0 z-50 transition-colors`}
     >
-      <Link to="/home" className="text-lg font-bold tracking-tight sm:text-xl">
+      <Link to="/home" className="text-sm font-bold tracking-tight sm:text-xl">
         StudentHub
       </Link>
-      <ul className="flex flex-wrap items-center justify-center gap-2 text-xs font-medium sm:gap-4 md:gap-6 sm:text-sm">
+      <ul className="flex items-center justify-end gap-1.5 text-[10px] font-medium sm:gap-4 md:gap-6 sm:text-sm">
         <li>
           <Link to="/home" className={`transition-colors ${theme.navLinkHover}`}>
             Home
@@ -39,7 +39,7 @@ export default function Navbar() {
             Favourites
             {favourites.length > 0 && (
               <span
-                className={`ml-1 inline-flex items-center justify-center text-[10px] font-bold rounded-full w-4 h-4 sm:w-5 sm:h-5 ${theme.navBadge}`}
+                className={`ml-1 inline-flex items-center justify-center text-[9px] font-bold rounded-full w-4 h-4 sm:w-5 sm:h-5 ${theme.navBadge}`}
               >
                 {favourites.length}
               </span>
@@ -52,9 +52,9 @@ export default function Navbar() {
         <li>
           <button
             onClick={handleLogout}
-            className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs transition-colors sm:px-3 sm:text-sm ${theme.navPillHover}`}
+            className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] transition-colors sm:gap-2 sm:px-3 sm:text-sm ${theme.navPillHover}`}
           >
-            <LogOut size={16} />
+            <LogOut size={14} />
             <span>Logout</span>
           </button>
         </li>
