@@ -15,12 +15,12 @@ export default function Navbar() {
   }
   return (
     <nav
-      className={`flex items-center justify-between px-6 py-4 ${theme.navBg} backdrop-blur-sm text-white sticky top-0 z-50 transition-colors`}
+      className={`flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 ${theme.navBg} backdrop-blur-sm text-white sticky top-0 z-50 transition-colors`}
     >
-      <Link to="/home" className="text-xl font-bold tracking-tight">
+      <Link to="/home" className="text-lg font-bold tracking-tight sm:text-xl">
         StudentHub
       </Link>
-      <ul className="flex items-center gap-6 text-sm font-medium">
+      <ul className="flex flex-wrap items-center justify-center gap-2 text-xs font-medium sm:gap-4 md:gap-6 sm:text-sm">
         <li>
           <Link to="/home" className={`transition-colors ${theme.navLinkHover}`}>
             Home
@@ -39,7 +39,7 @@ export default function Navbar() {
             Favourites
             {favourites.length > 0 && (
               <span
-                className={`ml-1 inline-flex items-center justify-center text-xs font-bold rounded-full w-5 h-5 ${theme.navBadge}`}
+                className={`ml-1 inline-flex items-center justify-center text-[10px] font-bold rounded-full w-4 h-4 sm:w-5 sm:h-5 ${theme.navBadge}`}
               >
                 {favourites.length}
               </span>
@@ -52,7 +52,7 @@ export default function Navbar() {
         <li>
           <button
             onClick={handleLogout}
-            className={`inline-flex items-center gap-2 px-3 py-1 rounded-full transition-colors ${theme.navPillHover}`}
+            className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs transition-colors sm:px-3 sm:text-sm ${theme.navPillHover}`}
           >
             <LogOut size={16} />
             <span>Logout</span>

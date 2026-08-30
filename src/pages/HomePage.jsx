@@ -7,30 +7,30 @@ export default function HomePage() {
   return (
     <div className={`min-h-screen flex flex-col ${theme.gradient}`}>
       <Navbar />
-      <header className="text-center text-white px-6 py-16">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+      <header className="text-center text-white px-4 py-12 sm:px-6 lg:py-16">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
           Favourite Student List
         </h1>
-        <p className="max-w-xl mx-auto text-white/90 mb-8">
+        <p className="max-w-xl mx-auto text-sm text-white/90 mb-8 sm:text-base">
           Browse all students, mark your favourites, and manage your list —
           all in one place.
         </p>
-        <div className="flex justify-center gap-4">
+        <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
           <Link
             to="/students"
-            className="bg-white text-gray-800 font-semibold px-6 py-2.5 rounded-full hover:opacity-90 transition"
+            className="bg-white text-gray-800 font-semibold px-5 py-2.5 rounded-full hover:opacity-90 transition w-full sm:w-auto"
           >
             View Student List
           </Link>
           <Link
             to="/favourites"
-            className={`font-semibold px-6 py-2.5 rounded-full transition ${theme.buttonOutline}`}
+            className={`font-semibold px-5 py-2.5 rounded-full transition w-full sm:w-auto ${theme.buttonOutline}`}
           >
             My Favourites
           </Link>
         </div>
       </header>
-      <section className="px-6 pb-16 max-w-3xl mx-auto w-full">
+      <section className="px-4 pb-16 max-w-3xl mx-auto w-full sm:px-6">
         <h2 className="text-2xl font-bold text-white text-center mb-4">
           How It Works
         </h2>
@@ -61,7 +61,7 @@ export default function HomePage() {
           <code className="text-white/90">public/captions/how-it-works</code>.
         </p>
       </section>
-      <section className="px-6 pb-20 max-w-4xl mx-auto w-full grid gap-6 sm:grid-cols-3">
+      <section className="px-4 pb-20 max-w-4xl mx-auto w-full grid gap-6 sm:px-6 md:grid-cols-3">
         <div className={`${theme.card} rounded-xl p-6 text-center shadow-lg`}>
           <h3 className="font-bold text-gray-800 mb-2">100 Students</h3>
           <p className="text-gray-500 text-sm">Fetched live from an API, A–Z sorted.</p>

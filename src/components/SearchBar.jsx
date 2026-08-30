@@ -11,7 +11,7 @@ export default function SearchBar({ value, onChange, placeholder }) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder || 'Search by name...'}
-        className={`w-full bg-white/90 border border-white/50 rounded-full py-2.5 pl-10 pr-9 text-sm text-gray-700 placeholder:text-gray-400 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-1 ${theme.ring}`}
+        className={`w-full bg-white/90 border border-white/50 rounded-full py-3 pl-10 pr-9 text-sm text-gray-700 placeholder:text-gray-400 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-1 sm:py-2.5 ${theme.ring}`}
       />
       {value && (
         <button
