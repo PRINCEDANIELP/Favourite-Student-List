@@ -110,29 +110,29 @@ export default function FavouriteStudentsPage() {
             {filteredFavourites.map((student) => (
               <div
                 key={student.id}
-                className={`${theme.card} rounded-xl p-4 shadow-lg flex flex-col gap-2 sm:p-5`}
+                className={`${theme.card} rounded-xl p-3 shadow-lg flex flex-col gap-2 sm:p-5`}
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
                   <Avatar name={student.name} size={12} />
                   <div className="min-w-0">
-                    <h3 className="font-bold text-gray-800 break-words">
+                    <h3 className="font-bold text-gray-800 break-words text-[11px] sm:text-base">
                       <HighlightText text={student.name} query={query} />
                     </h3>
-                    <p className="text-xs text-gray-500">ID: {student.id}</p>
+                    <p className="text-[10px] text-gray-500 sm:text-xs">ID: {student.id}</p>
                   </div>
                 </div>
-                <p className="text-sm text-gray-600">
+                <p className="text-[11px] text-gray-600 sm:text-sm">
                   <span className="font-medium">Section:</span>{' '}
                   <HighlightText text={student.classSection} query={query} />
                 </p>
-                <p className="text-xs text-gray-500 break-words">
+                <p className="text-[10px] text-gray-500 break-words sm:text-xs">
                   <HighlightText text={student.info} query={query} />
                 </p>
                 <button
                   onClick={() => removeFavourite(student.id)}
-                  className={`fav-card-button mt-2 rounded-full py-2 text-xs font-medium text-white transition sm:text-sm ${theme.removeButton}`}
+                  className={`mt-auto w-full rounded-full py-2 text-[10px] font-medium text-white transition sm:text-sm ${theme.removeButton}`}
                 >
-                  Remove from Favourites
+                  Remove
                 </button>
               </div>
             ))}

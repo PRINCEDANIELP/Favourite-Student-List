@@ -145,34 +145,34 @@ export default function StudentListPage() {
               return (
                 <div
                   key={student.id}
-                  className={`${theme.card} rounded-xl p-4 shadow-lg flex flex-col gap-2 sm:p-5`}
+                  className={`${theme.card} rounded-xl p-3 shadow-lg flex flex-col gap-2 sm:p-5`}
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <Avatar name={student.name} size={12} />
                     <div className="min-w-0">
-                      <h3 className="font-bold text-gray-800 break-words">
+                      <h3 className="font-bold text-gray-800 break-words text-[11px] sm:text-base">
                         <HighlightText text={student.name} query={query} />
                       </h3>
-                      <p className="text-xs text-gray-500">ID: {student.id}</p>
+                      <p className="text-[10px] text-gray-500 sm:text-xs">ID: {student.id}</p>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-[11px] text-gray-600 sm:text-sm">
                     <span className="font-medium">Section:</span>{' '}
                     <HighlightText text={student.classSection} query={query} />
                   </p>
-                  <p className="text-xs text-gray-500 break-words">
+                  <p className="text-[10px] text-gray-500 break-words sm:text-xs">
                     <HighlightText text={student.info} query={query} />
                   </p>
                   <button
                     onClick={() => addFavourite(student)}
                     disabled={favourited}
-                    className={`mt-2 rounded-full py-2 text-xs font-medium transition sm:text-sm ${
+                    className={`mt-auto w-full rounded-full py-2 text-[10px] font-medium transition sm:text-sm ${
                       favourited
                         ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
                         : `text-white ${theme.button}`
                     }`}
                   >
-                    {favourited ? '✓ Added to Favourites' : 'Add to Favourite'}
+                    {favourited ? '✓ Added' : 'Add to Favourite'}
                   </button>
                 </div>
               )
