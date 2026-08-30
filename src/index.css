@@ -9,3 +9,11 @@ html, body, #root {
 * {
   scroll-behavior: smooth;
 }
+
+@layer utilities {
+  @media (max-width: 640px) {
+    .fav-card-button {
+      width: 100%;
+    }
+  }
+}

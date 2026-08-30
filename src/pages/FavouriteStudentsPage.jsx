@@ -44,9 +44,9 @@ export default function FavouriteStudentsPage() {
     <div className={`min-h-screen flex flex-col ${theme.gradient}`}>
       <Navbar />
 
-      <main className="flex-1 px-6 py-10 max-w-5xl mx-auto w-full">
-        <h1 className="text-3xl font-bold text-white mb-1">Favourite Students</h1>
-        <p className="text-white/80 mb-6">
+      <main className="flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 max-w-5xl mx-auto w-full">
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-1">Favourite Students</h1>
+        <p className="text-sm sm:text-base text-white/80 mb-6">
           {favourites.length === 0
             ? 'Your favourites list'
             : `${filteredFavourites.length} of ${favourites.length} favourite student${favourites.length > 1 ? 's' : ''} shown`}
@@ -62,7 +62,7 @@ export default function FavouriteStudentsPage() {
               <button
                 type="button"
                 onClick={() => setSelectedClass('all')}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                className={`rounded-full px-3 py-2 text-xs sm:px-4 sm:text-sm font-medium transition ${
                   selectedClass === 'all'
                     ? `text-white ${theme.button}`
                     : 'bg-white/80 text-gray-700 hover:bg-white'
@@ -75,7 +75,7 @@ export default function FavouriteStudentsPage() {
                   key={value}
                   type="button"
                   onClick={() => setSelectedClass(value)}
-                  className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                  className={`rounded-full px-3 py-2 text-xs sm:px-4 sm:text-sm font-medium transition ${
                     selectedClass === value
                       ? `text-white ${theme.button}`
                       : 'bg-white/80 text-gray-700 hover:bg-white'
@@ -106,16 +106,16 @@ export default function FavouriteStudentsPage() {
             </p>
           </div>
         ) : (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {filteredFavourites.map((student) => (
               <div
                 key={student.id}
-                className={`${theme.card} rounded-xl p-5 shadow-lg flex flex-col gap-2`}
+                className={`${theme.card} rounded-xl p-4 shadow-lg flex flex-col gap-2 sm:p-5`}
               >
                 <div className="flex items-center gap-3">
                   <Avatar name={student.name} size={12} />
-                  <div>
-                    <h3 className="font-bold text-gray-800">
+                  <div className="min-w-0">
+                    <h3 className="font-bold text-gray-800 break-words">
                       <HighlightText text={student.name} query={query} />
                     </h3>
                     <p className="text-xs text-gray-500">ID: {student.id}</p>
@@ -125,12 +125,12 @@ export default function FavouriteStudentsPage() {
                   <span className="font-medium">Section:</span>{' '}
                   <HighlightText text={student.classSection} query={query} />
                 </p>
-                <p className="text-xs text-gray-500 truncate">
+                <p className="text-xs text-gray-500 break-words">
                   <HighlightText text={student.info} query={query} />
                 </p>
                 <button
                   onClick={() => removeFavourite(student.id)}
-                  className={`mt-2 rounded-full py-2 text-sm font-medium text-white transition ${theme.removeButton}`}
+                  className={`fav-card-button mt-2 rounded-full py-2 text-xs font-medium text-white transition sm:text-sm ${theme.removeButton}`}
                 >
                   Remove from Favourites
                 </button>
